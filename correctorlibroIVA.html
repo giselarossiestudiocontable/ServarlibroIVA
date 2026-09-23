@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)file:///G:/Mi%20unidad/Claude/corrector-libro-iva/Corrector%20txt%20Servar.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Corrector Libro IVA Ventas y Compras (F.2051)</title>
+<style>
+  :root{
+    --bg:#f4f5f7; --panel:#ffffff; --border:#d9dce1; --text:#1f2430; --muted:#6b7280;
+    --accent:#2563eb; --accent-hover:#1d4ed8; --ok:#15803d; --ok-bg:#ecfdf3;
+    --warn:#b45309; --warn-bg:#fffbeb; --danger:#b91c1c; --danger-bg:#fef2f2;
+    --mono: "Consolas","SFMono-Regular",Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15171c; --panel:#1d2027; --border:#33384533; --text:#e6e8ec; --muted:#9aa1ad;
+      --accent:#3b82f6; --accent-hover:#60a5fa; --ok:#4ade80; --ok-bg:#0f2a1a;
+      --warn:#fbbf24; --warn-bg:#2a2110; --danger:#f87171; --danger-bg:#2a1414;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15171c; --panel:#1d2027; --border:#333845; --text:#e6e8ec; --muted:#9aa1ad;
+    --accent:#3b82f6; --accent-hover:#60a5fa; --ok:#4ade80; --ok-bg:#0f2a1a;
+    --warn:#fbbf24; --warn-bg:#2a2110; --danger:#f87171; --danger-bg:#2a1414;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding:24px 16px 60px;
+  }
+  .wrap{max-width:960px; margin:0 auto;}
+  h1{font-size:1.4rem; margin:0 0 4px;}
+  h2{font-size:1.05rem; margin:0;}
+  .subtitle{color:var(--muted); margin:0 0 24px; font-size:.92rem;}
+  .panel{
+    background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    padding:20px; margin-bottom:20px;
+  }
+  .drop{
+    border:2px dashed var(--border); border-radius:10px; padding:36px 16px;
+    text-align:center; cursor:pointer; transition:border-color .15s, background .15s;
+  }
+  .drop.drag{border-color:var(--accent); background:color-mix(in srgb, var(--accent) 8%, transparent);}
+  .drop strong{color:var(--accent);}
+  input[type=file]{display:none;}
+  .rules{margin:0; padding-left:1.1rem; color:var(--muted); font-size:.88rem; line-height:1.6;}
+  .rules code{background:var(--bg); padding:1px 5px; border-radius:4px; font-family:var(--mono);}
+  .rules-group{margin-top:10px;}
+  .rules-group b{color:var(--text); font-size:.85rem;}
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:14px;}
+  .stat{border:1px solid var(--border); border-radius:10px; padding:12px 14px; background:var(--bg);}
+  .stat .n{font-size:1.5rem; font-weight:600;}
+  .stat .l{font-size:.78rem; color:var(--muted); margin-top:2px;}
+  .stat.ok .n{color:var(--ok);}
+  .stat.warn .n{color:var(--warn);}
+  .actions{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;}
+  button{
+    font:inherit; font-size:.9rem; font-weight:600; padding:10px 18px; border-radius:8px;
+    border:1px solid transparent; cursor:pointer; background:var(--accent); color:#fff;
+  }
+  button:hover{background:var(--accent-hover);}
+  button.secondary{background:transparent; color:var(--text); border-color:var(--border);}
+  button.secondary:hover{background:var(--bg);}
+  button:disabled{opacity:.45; cursor:not-allowed;}
+  table{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:.76rem; margin-top:8px;}
+  th,td{border-bottom:1px solid var(--border); padding:6px 8px; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:220px;}
+  th{color:var(--muted); font-weight:600; font-size:.72rem; text-transform:uppercase;}
+  mark{background:var(--warn-bg); color:var(--warn); padding:0 2px; border-radius:3px; font-weight:600;}
+  .table-scroll{overflow-x:auto;}
+  .badge{display:inline-block; font-size:.72rem; font-weight:600; padding:2px 8px; border-radius:999px;}
+  .badge.ok{background:var(--ok-bg); color:var(--ok);}
+  .badge.warn{background:var(--warn-bg); color:var(--warn);}
+  .badge.danger{background:var(--danger-bg); color:var(--danger);}
+  .badge.type{background:color-mix(in srgb, var(--accent) 15%, transparent); color:var(--accent);}
+  .warn-box{background:var(--warn-bg); border:1px solid var(--warn); color:var(--warn); border-radius:8px; padding:12px 14px; font-size:.85rem; margin-top:14px;}
+  .danger-box{background:var(--danger-bg); border:1px solid var(--danger); color:var(--danger); border-radius:8px; padding:12px 14px; font-size:.85rem; margin-top:14px;}
+  .empty{color:var(--muted); font-size:.9rem;}
+  footer{text-align:center; color:var(--muted); font-size:.78rem; margin-top:30px;}
+  .hidden{display:none !important;}
+  .card-head{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+  .filename{font-family:var(--mono); font-size:.85rem; color:var(--muted); word-break:break-all;}
+  #results{display:flex; flex-direction:column; gap:20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Corrector Libro IVA — Ventas y Compras (F.2051)</h1>
+  <p class="subtitle">Todo se procesa en tu navegador: los archivos nunca se envían a ningún servidor.</p>
+
+  <div class="panel">
+    <div id="drop" class="drop">
+      <div>📄 Arrastrá acá tus .txt (Ventas CBTE, Compras CBTE y/o Compras Alícuotas) o <strong>hacé clic para elegirlos</strong></div>
+    </div>
+    <input type="file" id="fileInput" accept=".txt" multiple="">
+
+    <div class="rules-group">
+      <b>Ventas — CBTE (registros de 266 caracteres):</b>
+      <ul class="rules">
+        <li>Código de documento <code>96</code> → se corrige a <code>99</code> (Consumidor Final).</li>
+        <li>Número de identificación de Consumidor Final <code>11111111113</code> → se reemplaza por ceros.</li>
+        <li>CUIT <code>30716192632</code> → se reemplaza por <code>20222222223</code>.</li>
+        <li>Letra <code>Ñ</code> u otro carácter fuera del ASCII estándar (tildes, diéresis) → se reemplaza por <code>N</code>/<code>n</code>. No afecta puntuación normal (puntos, guiones, paréntesis).</li>
+      </ul>
+    </div>
+    <div class="rules-group">
+      <b>Compras — CBTE (325 caracteres) y Alícuotas (84 caracteres):</b>
+      <ul class="rules">
+        <li>Todo renglón que contenga la CUIT <code>30716192632</code> → se elimina del archivo.</li>
+        <li>Letra <code>Ñ</code> u otro carácter fuera del ASCII estándar (tildes, diéresis) → se reemplaza por <code>N</code>/<code>n</code>. No afecta puntuación normal (puntos, guiones, paréntesis).</li>
+      </ul>
+    </div>
+    <div class="rules-group">
+      <ul class="rules">
+        <li>El tipo de archivo se detecta automáticamente por el ancho de línea. Toda línea con longitud atípica para su tipo se deja intacta y se marca como advertencia para revisión manual.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="results"></div>
+
+  <h1 style="margin-top:40px;">Generar TXT de Compras desde Excel (Tango)</h1>
+  <p class="subtitle">Convierte el Excel mensual "Iva Compra Tango" en los dos archivos del Libro IVA Digital de Compras, listos para corregir arriba (si hace falta) y subir a ARCA.</p>
+
+  <div class="panel">
+    <div id="dropXlsx" class="drop">
+      <div>📊 Arrastrá acá el .xlsx de compras (Tango) o <strong>hacé clic para elegirlo</strong></div>
+    </div>
+    <input type="file" id="xlsxInput" accept=".xlsx">
+
+    <div class="rules-group">
+      <b>Mapeo de columnas del Excel:</b>
+      <ul class="rules">
+        <li>H alícuota IVA · I exento · J neto gravado · L IVA · M no gravado · N total · O percepciones IIBB · E CUIT proveedor · G letra+PtoVta+Número de comprobante.</li>
+        <li>Letra del comprobante (A/B/C, tomada de la columna G) → tipo: A=001, B=006, C=011. Para Factura C no se genera línea de alícuota (no discrimina IVA).</li>
+        <li>Filas sin letra en G (ej. gastos bancarios) → se agrupan por CUIT del proveedor en un único comprobante <b>tipo 099</b>, punto de venta 0, con fecha y número = último día del mes procesado.</li>
+        <li>Ñ y caracteres fuera de ASCII en la razón social → se reemplazan por N/n.</li>
+        <li><b>Supuestos que confirmar con tu contador:</b> Crédito Fiscal Computable = IVA liquidado (sin prorrateo); Código de Operación en blanco salvo que se detecten casos de alícuota 0% en Factura A/B (se marcan como advertencia).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="resultsXlsx"></div>
+
+  <footer>Formatos de registro: CITI Ventas / F.2051 — CBTE Ventas (266), CBTE Compras (325), Alícuotas Compras (84)</footer>
+</div>
+
+<script>
+// ---- Reglas Ventas CBTE (266 caracteres, columnas fijas) ----
+const VENTAS_LEN = 266;
+const COD_DOC_START = 56, COD_DOC_LEN = 2;
+const IDENT_START = 58, IDENT_LEN = 20;
+const CONSUMIDOR_FINAL_MAL = '00000000011111111113';
+const CONSUMIDOR_FINAL_BIEN = '0'.repeat(IDENT_LEN);
+
+// ---- Regla CUIT (compartida por los 3 tipos de archivo) ----
+const CUIT_MAL = '00000000030716192632';
+const CUIT_BIEN = '00000000020222222223';
+
+// Cualquier carácter fuera del rango ASCII estándar (tildes, Ñ, diéresis, etc.).
+// No toca puntuación normal (. , - ( ) etc.) porque es parte válida de razones sociales.
+const SPECIAL_CHARS_RE = /[^\x00-\x7F]/g;
+
+const COMPRAS_CBTE_LEN = 325;
+const COMPRAS_ALICUOTAS_LEN = 84;
+
+const FILE_TYPES = {
+  ventas:   { label: 'Ventas CBTE',        length: VENTAS_LEN },
+  compras_cbte:       { label: 'Compras CBTE',       length: COMPRAS_CBTE_LEN },
+  compras_alicuotas:  { label: 'Compras Alícuotas',  length: COMPRAS_ALICUOTAS_LEN },
+};
+
+const drop = document.getElementById('drop');
+const fileInput = document.getElementById('fileInput');
+const resultsEl = document.getElementById('results');
+
+drop.addEventListener('click', () => fileInput.click());
+drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('drag'); });
+drop.addEventListener('dragleave', () => drop.classList.remove('drag'));
+drop.addEventListener('drop', e => {
+  e.preventDefault();
+  drop.classList.remove('drag');
+  if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', e => {
+  if (e.target.files.length) handleFiles(e.target.files);
+});
+
+function handleFiles(fileList){
+  Array.from(fileList).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = () => processFile(file.name, reader.result);
+    reader.readAsText(file, 'utf-8');
+  });
+}
+
+function detectFileType(rawLines){
+  const lens = {};
+  rawLines.forEach(l => { if (l.length) lens[l.length] = (lens[l.length] || 0) + 1; });
+  let mostCommonLen = null, best = -1;
+  Object.entries(lens).forEach(([len, count]) => { if (count > best) { best = count; mostCommonLen = Number(len); } });
+  for (const [key, def] of Object.entries(FILE_TYPES)) {
+    if (def.length === mostCommonLen) return { key, ...def };
+  }
+  return { key: 'desconocido', label: 'Desconocido', length: mostCommonLen };
+}
+
+function applyVentasRules(line){
+  let out = line;
+  let touched = false;
+  const reasons = [];
+
+  if (out.substr(COD_DOC_START, COD_DOC_LEN) === '96') {
+    out = out.substring(0, COD_DOC_START) + '99' + out.substring(COD_DOC_START + COD_DOC_LEN);
+    touched = true; reasons.push('Código doc 96→99');
+  }
+  const identAfter = out.substr(IDENT_START, IDENT_LEN);
+  if (identAfter === CONSUMIDOR_FINAL_MAL) {
+    out = out.substring(0, IDENT_START) + CONSUMIDOR_FINAL_BIEN + out.substring(IDENT_START + IDENT_LEN);
+    touched = true; reasons.push('Identificación Consumidor Final → ceros');
+  } else if (identAfter === CUIT_MAL) {
+    out = out.substring(0, IDENT_START) + CUIT_BIEN + out.substring(IDENT_START + IDENT_LEN);
+    touched = true; reasons.push('CUIT 30716192632 → 20222222223');
+  }
+
+  let specialFound = false;
+  out = out.replace(SPECIAL_CHARS_RE, ch => {
+    specialFound = true;
+    return (ch === ch.toLowerCase() && ch !== ch.toUpperCase()) ? 'n' : 'N';
+  });
+  if (specialFound) { touched = true; reasons.push('Ñ/carácter especial → N'); }
+
+  return { out, touched, reasons };
+}
+
+function applyComprasRules(line){
+  let out = line;
+  let touched = false;
+  const reasons = [];
+
+  let specialFound = false;
+  out = out.replace(SPECIAL_CHARS_RE, ch => {
+    specialFound = true;
+    return (ch === ch.toLowerCase() && ch !== ch.toUpperCase()) ? 'n' : 'N';
+  });
+  if (specialFound) { touched = true; reasons.push('Ñ/carácter especial → N'); }
+
+  return { out, touched, reasons };
+}
+
+function processFile(name, text){
+  let newline = '\r\n';
+  if (text.includes('\r\n')) newline = '\r\n';
+  else if (text.includes('\n')) newline = '\n';
+
+  const rawLines = text.split(/\r\n|\n|\r/).filter((l, idx, arr) => !(idx === arr.length - 1 && l === ''));
+  const type = detectFileType(rawLines);
+
+  const counters = {};
+  let countWarn = 0;
+  const changes = [];
+  const removed = [];
+  const correctedLines = [];
+  rawLines.forEach((line, idx) => {
+    if (type.key === 'desconocido' || line.length !== type.length) {
+      countWarn++;
+      correctedLines.push(line);
+      return;
+    }
+    if (type.key !== 'ventas' && line.includes(CUIT_MAL)) {
+      removed.push({ n: idx + 1, line });
+      return;
+    }
+    let result;
+    if (type.key === 'ventas') result = applyVentasRules(line);
+    else result = applyComprasRules(line);
+
+    result.reasons.forEach(r => { counters[r] = (counters[r] || 0) + 1; });
+    if (result.touched) changes.push({ n: idx + 1, reason: result.reasons.join(' + '), before: line, after: result.out });
+    correctedLines.push(result.out);
+  });
+
+  renderFileCard({ name, type, total: rawLines.length, counters, countWarn, changes, removed, correctedLines, newline });
+}
+
+function highlightDiff(a, b){
+  let start = 0;
+  while (start < a.length && a[start] === b[start]) start++;
+  let endA = a.length, endB = b.length;
+  while (endA > start && endB > start && a[endA-1] === b[endB-1]) { endA--; endB--; }
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  return {
+    before: esc(a.slice(0,start)) + '<mark>' + esc(a.slice(start,endA)) + '</mark>' + esc(a.slice(endA)),
+    after: esc(b.slice(0,start)) + '<mark>' + esc(b.slice(start,endB)) + '</mark>' + esc(b.slice(endB))
+  };
+}
+
+let cardSeq = 0;
+
+function renderFileCard({ name, type, total, counters, countWarn, changes, removed, correctedLines, newline }){
+  const id = 'card' + (cardSeq++);
+  const card = document.createElement('div');
+  card.className = 'panel';
+
+  const statCards = Object.entries(counters).map(([label, n]) =>
+    `<div class="stat ok"><div class="n">${n}</div><div class="l">${label}</div></div>`
+  ).join('');
+
+  const unknownWarning = type.key === 'desconocido'
+    ? `<div class="danger-box">⚠ No se pudo determinar el tipo de archivo (ancho de línea predominante: ${type.length ?? '?'}). No se aplicó ninguna corrección; revisá que sea un archivo del Libro IVA F.2051.</div>`
+    : '';
+
+  const lenWarning = countWarn && type.key !== 'desconocido'
+    ? `<div class="warn-box">⚠ ${countWarn} línea(s) no tienen los ${type.length} caracteres esperados para ${type.label}. Se dejaron sin modificar; revisalas manualmente antes de subir a ARCA.</div>`
+    : '';
+
+  const removedStat = removed.length
+    ? `<div class="stat warn"><div class="n">${removed.length}</div><div class="l">Líneas eliminadas (CUIT 30716192632)</div></div>`
+    : '';
+
+  card.innerHTML = `
+    <div class="card-head">
+      <div>
+        <h2>${name}</h2>
+        <div class="filename">${(total).toLocaleString('es-AR')} líneas</div>
+      </div>
+      <span class="badge type">${type.label}${type.key === 'desconocido' ? '' : ' · ' + type.length + ' car.'}</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">${total}</div><div class="l">Líneas totales</div></div>
+      ${statCards}
+      ${removedStat}
+      <div class="stat ${countWarn ? 'warn' : ''}"><div class="n">${countWarn}</div><div class="l">Líneas con longitud atípica (sin tocar)</div></div>
+    </div>
+    ${unknownWarning}
+    ${lenWarning}
+    <div class="actions">
+      <button class="download-btn" ${type.key === 'desconocido' ? 'disabled' : ''}>⬇ Descargar TXT corregido</button>
+    </div>
+    ${removed.length ? `
+    <div class="table-scroll">
+      <strong>Líneas eliminadas por contener la CUIT 30716192632</strong>
+      <table>
+        <thead><tr><th>#</th><th>Contenido</th></tr></thead>
+        <tbody>
+          ${removed.slice(0, 50).map(r => `<tr><td>${r.n}</td><td><span class="badge danger">${r.line.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</span></td></tr>`).join('')}
+          ${removed.length > 50 ? `<tr><td colspan="2" class="empty">... y ${removed.length - 50} línea(s) más eliminadas (no mostradas).</td></tr>` : ''}
+        </tbody>
+      </table>
+    </div>` : ''}
+    ${changes.length ? `
+    <div class="table-scroll">
+      <strong>Vista previa de líneas corregidas</strong>
+      <table>
+        <thead><tr><th>#</th><th>Motivo</th><th>Antes</th><th>Después</th></tr></thead>
+        <tbody>
+          ${changes.slice(0, 50).map(c => {
+            const d = highlightDiff(c.before, c.after);
+            return `<tr><td>${c.n}</td><td><span class="badge ok">${c.reason}</span></td><td>${d.before}</td><td>${d.after}</td></tr>`;
+          }).join('')}
+          ${changes.length > 50 ? `<tr><td colspan="4" class="empty">... y ${changes.length - 50} línea(s) más corregidas (no mostradas).</td></tr>` : ''}
+        </tbody>
+      </table>
+    </div>` : ''}
+  `;
+
+  card.querySelector('.download-btn').addEventListener('click', () => {
+    const content = correctedLines.join(newline) + newline;
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const base = name.replace(/\.txt$/i, '') || 'archivo';
+    a.href = url;
+    a.download = base + '_CORREGIDO.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  resultsEl.prepend(card);
+}
+
+// =====================================================================
+// Conversor Excel "Iva Compra Tango" -> TXT Libro IVA Digital Compras
+// Sin dependencias externas: unzip + inflate con DecompressionStream nativo del navegador.
+// =====================================================================
+const CC_ALICUOTA_CODE = { '0': '0003', '10.5': '0004', '21': '0005', '27': '0006', '5': '0008', '2.5': '0009' };
+const CC_LETRA_TIPO = { A: '001', B: '006', C: '011' };
+
+function ccPadLeft0(value, width) { return String(value).padStart(width, '0'); }
+function ccPadRightSp(value, width) {
+  const s = String(value);
+  return s.length > width ? s.slice(0, width) : s.padEnd(width, ' ');
+}
+function ccLimpiarEspeciales(s) {
+  if (!s) return s;
+  return s.replace(SPECIAL_CHARS_RE, ch => (ch === ch.toLowerCase() && ch !== ch.toUpperCase()) ? 'n' : 'N');
+}
+function ccLimpiarCuit(e) { return (e || '').replace(/[^0-9]/g, ''); }
+function ccFormatImporte(value, width = 15) {
+  const cents = Math.round(Number(value) * 100);
+  const neg = cents < 0;
+  const abs = Math.abs(cents);
+  const digitWidth = width - (neg ? 1 : 0);
+  const digits = String(abs).padStart(digitWidth, '0');
+  return (neg ? '-' : '') + digits;
+}
+function ccAlicuotaCode(h) {
+  const num = Number(h);
+  const key = String(num);
+  if (CC_ALICUOTA_CODE[key] !== undefined) return CC_ALICUOTA_CODE[key];
+  const known = [0, 10.5, 21, 27, 5, 2.5];
+  for (const k of known) { if (Math.abs(num - k) < 1e-6) return CC_ALICUOTA_CODE[String(k)]; }
+  throw new Error('Alicuota no reconocida: ' + h);
+}
+function ccExcelSerialToYYYYMMDD(serial) {
+  const ms = Date.UTC(1899, 11, 30) + Number(serial) * 86400000;
+  const d = new Date(ms);
+  return `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`;
+}
+function ccLastDayOfMonthFromSerial(serial) {
+  const ms = Date.UTC(1899, 11, 30) + Number(serial) * 86400000;
+  const d = new Date(ms);
+  const last = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0));
+  return `${last.getUTCFullYear()}${String(last.getUTCMonth() + 1).padStart(2, '0')}${String(last.getUTCDate()).padStart(2, '0')}`;
+}
+
+// ---------- Lectura mínima de ZIP (formato .xlsx) ----------
+function ccReadUint16LE(dv, off) { return dv.getUint16(off, true); }
+function ccReadUint32LE(dv, off) { return dv.getUint32(off, true); }
+
+function ccFindEOCD(bytes) {
+  const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const maxBack = Math.min(bytes.length, 66000);
+  for (let i = bytes.length - 22; i >= bytes.length - maxBack && i >= 0; i--) {
+    if (dv.getUint32(i, true) === 0x06054b50) return i;
+  }
+  throw new Error('No se encontró el fin de directorio central del ZIP (archivo .xlsx inválido o corrupto).');
+}
+
+function ccListZipEntries(bytes) {
+  const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const eocdOff = ccFindEOCD(bytes);
+  const totalEntries = ccReadUint16LE(dv, eocdOff + 10);
+  const cdOffset = ccReadUint32LE(dv, eocdOff + 16);
+  const entries = [];
+  let off = cdOffset;
+  const dec = new TextDecoder('utf-8');
+  for (let i = 0; i < totalEntries; i++) {
+    if (dv.getUint32(off, true) !== 0x02014b50) throw new Error('Directorio central del ZIP inconsistente.');
+    const compressionMethod = ccReadUint16LE(dv, off + 10);
+    const compressedSize = ccReadUint32LE(dv, off + 20);
+    const uncompressedSize = ccReadUint32LE(dv, off + 24);
+    const nameLen = ccReadUint16LE(dv, off + 28);
+    const extraLen = ccReadUint16LE(dv, off + 30);
+    const commentLen = ccReadUint16LE(dv, off + 32);
+    const localHeaderOffset = ccReadUint32LE(dv, off + 42);
+    const nameBytes = bytes.subarray(off + 46, off + 46 + nameLen);
+    const name = dec.decode(nameBytes);
+    entries.push({ name, compressionMethod, compressedSize, uncompressedSize, localHeaderOffset });
+    off += 46 + nameLen + extraLen + commentLen;
+  }
+  return entries;
+}
+
+async function ccInflateRaw(bytes) {
+  const ds = new DecompressionStream('deflate-raw');
+  const stream = new Blob([bytes]).stream().pipeThrough(ds);
+  const ab = await new Response(stream).arrayBuffer();
+  return new Uint8Array(ab);
+}
+
+async function ccGetZipEntryText(bytes, entryName) {
+  const entries = ccListZipEntries(bytes);
+  const entry = entries.find(e => e.name === entryName);
+  if (!entry) return null;
+  const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const lh = entry.localHeaderOffset;
+  if (dv.getUint32(lh, true) !== 0x04034b50) throw new Error('Encabezado local del ZIP inválido para ' + entryName);
+  const nameLen = ccReadUint16LE(dv, lh + 26);
+  const extraLen = ccReadUint16LE(dv, lh + 28);
+  const dataStart = lh + 30 + nameLen + extraLen;
+  const compressed = bytes.subarray(dataStart, dataStart + entry.compressedSize);
+  let raw;
+  if (entry.compressionMethod === 0) raw = compressed;
+  else if (entry.compressionMethod === 8) raw = await ccInflateRaw(compressed);
+  else throw new Error('Método de compresión no soportado (' + entry.compressionMethod + ') para ' + entryName);
+  return new TextDecoder('utf-8').decode(raw);
+}
+
+// ---------- Parseo del XML de Excel ----------
+function ccParseSharedStrings(xmlText) {
+  const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
+  const sis = doc.getElementsByTagName('si');
+  const out = [];
+  for (let i = 0; i < sis.length; i++) {
+    const ts = sis[i].getElementsByTagName('t');
+    let s = '';
+    for (let j = 0; j < ts.length; j++) s += ts[j].textContent;
+    out.push(s);
+  }
+  return out;
+}
+
+function ccParseSheetRows(xmlText, sharedStrings) {
+  const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
+  const rowEls = doc.getElementsByTagName('row');
+  const rows = [];
+  for (let i = 0; i < rowEls.length; i++) {
+    const rowEl = rowEls[i];
+    if (rowEl.getAttribute('r') === '1') continue; // encabezado
+    const cells = {};
+    const cEls = rowEl.getElementsByTagName('c');
+    for (let j = 0; j < cEls.length; j++) {
+      const c = cEls[j];
+      const ref = c.getAttribute('r') || '';
+      const col = ref.replace(/[0-9]/g, '');
+      const t = c.getAttribute('t');
+      const vEl = c.getElementsByTagName('v')[0];
+      let val = vEl ? vEl.textContent : '';
+      if (t === 's') val = sharedStrings[parseInt(val, 10)] ?? '';
+      cells[col] = val;
+    }
+    rows.push(cells);
+  }
+  return rows;
+}
+
+async function ccParseTangoComprasXlsx(arrayBuffer) {
+  const bytes = new Uint8Array(arrayBuffer);
+  const sharedXml = await ccGetZipEntryText(bytes, 'xl/sharedStrings.xml');
+  const sheetXml = await ccGetZipEntryText(bytes, 'xl/worksheets/sheet1.xml');
+  if (!sheetXml) throw new Error('No se encontró xl/worksheets/sheet1.xml dentro del archivo. ¿Es un .xlsx exportado por Tango?');
+  const sharedStrings = sharedXml ? ccParseSharedStrings(sharedXml) : [];
+  return ccParseSheetRows(sheetXml, sharedStrings);
+}
+
+// ---------- Lógica de negocio (mapeo de columnas + reglas) ----------
+function ccConvertCompras(rows) {
+  // Las filas con letra A/B/C en G son comprobantes individuales.
+  // Las filas cuyo primer caracter de G es un espacio (sin letra, ej. gastos bancarios)
+  // se agrupan por CUIT en un unico comprobante 099 mensual.
+  const normales = rows.filter(r => r.G && CC_LETRA_TIPO[r.G.substring(0, 1)]);
+  const bancos = rows.filter(r => !r.G || !CC_LETRA_TIPO[r.G.substring(0, 1)]);
+
+  const cbteLines = [];
+  const aliLines = [];
+  const warnings = [];
+
+  for (const r of normales) {
+    const g = r.G;
+    const letra = g.substring(0, 1);
+    const ptovta = g.substring(1, 5);
+    const numero = g.substring(5, 13);
+    const tipoCbte = CC_LETRA_TIPO[letra];
+    const cuit = ccLimpiarCuit(r.E);
+    const denom = ccLimpiarEspeciales(ccPadRightSp(r.C, 30));
+    const fecha = ccExcelSerialToYYYYMMDD(r.A);
+    const ptovtaF = ccPadLeft0(ptovta, 5);
+    const numeroF = ccPadLeft0(numero, 20);
+    const despacho = '0'.repeat(16);
+    const codDoc = '80';
+    const identF = ccPadLeft0(cuit, 20);
+
+    const importeTotal = ccFormatImporte(r.N);
+    const noGravado = ccFormatImporte(r.M);
+    const exento = ccFormatImporte(r.I);
+    const percIVA = ccFormatImporte(0);
+    const percOtrosNac = ccFormatImporte(0);
+    const percIIBB = ccFormatImporte(r.O);
+    const percMunic = ccFormatImporte(0);
+    const impInternos = ccFormatImporte(0);
+    const moneda = 'PES';
+    const tipoCambio = '0001000000';
+
+    const esC = letra === 'C';
+    const cantAlicuotas = esC ? '0' : '1';
+    const codOperacion = ' ';
+    const creditoFiscal = esC ? ccFormatImporte(0) : ccFormatImporte(r.L);
+    const otrosTributos = ccFormatImporte(0);
+    const cuitCorredor = ccPadLeft0('', 11);
+    const denomCorredor = ' '.repeat(30);
+    const ivaComision = ccFormatImporte(0);
+
+    const line = fecha + tipoCbte + ptovtaF + numeroF + despacho + codDoc + identF + denom +
+      importeTotal + noGravado + exento + percIVA + percOtrosNac + percIIBB + percMunic + impInternos +
+      moneda + tipoCambio + cantAlicuotas + codOperacion + creditoFiscal + otrosTributos +
+      cuitCorredor + denomCorredor + ivaComision;
+
+    if (line.length !== 325) { warnings.push(`Línea CBTE con longitud ${line.length} (comprobante ${g}).`); continue; }
+    cbteLines.push(line);
+
+    if (!esC) {
+      const netoGravado = ccFormatImporte(r.J);
+      let alicCode;
+      try { alicCode = ccAlicuotaCode(r.H); } catch (e) { warnings.push(`${e.message} (comprobante ${g}, ${r.C}).`); continue; }
+      const impLiquidado = ccFormatImporte(r.L);
+      const aliLine = tipoCbte + ptovtaF + numeroF + codDoc + identF + netoGravado + alicCode + impLiquidado;
+      if (aliLine.length !== 84) { warnings.push(`Línea ALICUOTAS con longitud ${aliLine.length} (comprobante ${g}).`); continue; }
+      aliLines.push(aliLine);
+    }
+  }
+
+  // Agrupar filas sin letra (bancos) por CUIT en un comprobante 099 por banco
+  const gruposBanco = new Map();
+  for (const r of bancos) {
+    const key = r.E;
+    if (!gruposBanco.has(key)) gruposBanco.set(key, []);
+    gruposBanco.get(key).push(r);
+  }
+
+  let fechaUltimoDia = null;
+  if (rows.length) {
+    const maxSerial = Math.max(...rows.map(r => Number(r.A) || 0));
+    fechaUltimoDia = ccLastDayOfMonthFromSerial(maxSerial);
+  }
+
+  let bancosAgrupados = 0;
+  for (const [cuitRaw, grupo] of gruposBanco) {
+    const cuit = ccLimpiarCuit(cuitRaw);
+    const denom = ccLimpiarEspeciales(ccPadRightSp(grupo[0].C, 30));
+    const sum = (campo) => grupo.reduce((acc, r) => acc + Number(r[campo] || 0), 0);
+    const sumI = sum('I'), sumJ = sum('J'), sumL = sum('L'), sumM = sum('M'), sumN = sum('N'), sumO = sum('O');
+
+    const hValues = [...new Set(grupo.map(r => Number(r.H)))];
+    if (hValues.length !== 1) {
+      warnings.push(`El proveedor "${grupo[0].C}" (CUIT ${cuitRaw}) tiene más de una alícuota distinta (${hValues.join(', ')}%); revisar manualmente, no se generó su comprobante 099.`);
+      continue;
+    }
+
+    const tipoCbte = '099';
+    const ptovtaF = ccPadLeft0(0, 5);
+    const numeroF = ccPadLeft0(fechaUltimoDia, 20);
+    const despacho = '0'.repeat(16);
+    const codDoc = '80';
+    const identF = ccPadLeft0(cuit, 20);
+
+    const importeTotal = ccFormatImporte(sumN);
+    const noGravado = ccFormatImporte(sumM);
+    const exento = ccFormatImporte(sumI);
+    const percIVA = ccFormatImporte(0);
+    const percOtrosNac = ccFormatImporte(0);
+    const percIIBB = ccFormatImporte(sumO);
+    const percMunic = ccFormatImporte(0);
+    const impInternos = ccFormatImporte(0);
+    const moneda = 'PES';
+    const tipoCambio = '0001000000';
+    const cantAlicuotas = '1';
+    const codOperacion = ' ';
+    const creditoFiscal = ccFormatImporte(sumL);
+    const otrosTributos = ccFormatImporte(0);
+    const cuitCorredor = ccPadLeft0('', 11);
+    const denomCorredor = ' '.repeat(30);
+    const ivaComision = ccFormatImporte(0);
+
+    const line = fechaUltimoDia + tipoCbte + ptovtaF + numeroF + despacho + codDoc + identF + denom +
+      importeTotal + noGravado + exento + percIVA + percOtrosNac + percIIBB + percMunic + impInternos +
+      moneda + tipoCambio + cantAlicuotas + codOperacion + creditoFiscal + otrosTributos +
+      cuitCorredor + denomCorredor + ivaComision;
+    if (line.length !== 325) { warnings.push(`Línea CBTE (banco ${grupo[0].C}) con longitud ${line.length}.`); continue; }
+    cbteLines.push(line);
+
+    const netoGravado = ccFormatImporte(sumJ);
+    const alicCode = ccAlicuotaCode(hValues[0]);
+    const impLiquidado = ccFormatImporte(sumL);
+    const aliLine = tipoCbte + ptovtaF + numeroF + codDoc + identF + netoGravado + alicCode + impLiquidado;
+    if (aliLine.length !== 84) { warnings.push(`Línea ALICUOTAS (banco ${grupo[0].C}) con longitud ${aliLine.length}.`); continue; }
+    aliLines.push(aliLine);
+    bancosAgrupados++;
+  }
+
+  const sumNTotal = rows.reduce((acc, r) => acc + Number(r.N || 0), 0);
+  const sumLTotal = rows.reduce((acc, r) => acc + Number(r.L || 0), 0);
+
+  return {
+    cbteLines, aliLines, warnings,
+    stats: {
+      totalFilasExcel: rows.length,
+      comprobantesIndividuales: normales.length,
+      filasBancarias: bancos.length,
+      bancosAgrupados,
+      totalComprobantesCbte: cbteLines.length,
+      totalLineasAlicuotas: aliLines.length,
+      sumaImporteTotalExcel: sumNTotal,
+      sumaIvaExcel: sumLTotal,
+      fechaUltimoDiaMes: fechaUltimoDia,
+    }
+  };
+}
+
+// ---------- UI de la seccion Excel -> TXT Compras ----------
+const dropXlsx = document.getElementById('dropXlsx');
+const xlsxInput = document.getElementById('xlsxInput');
+const resultsXlsxEl = document.getElementById('resultsXlsx');
+
+dropXlsx.addEventListener('click', () => xlsxInput.click());
+dropXlsx.addEventListener('dragover', e => { e.preventDefault(); dropXlsx.classList.add('drag'); });
+dropXlsx.addEventListener('dragleave', () => dropXlsx.classList.remove('drag'));
+dropXlsx.addEventListener('drop', e => {
+  e.preventDefault();
+  dropXlsx.classList.remove('drag');
+  if (e.dataTransfer.files.length) handleXlsxFile(e.dataTransfer.files[0]);
+});
+xlsxInput.addEventListener('change', e => {
+  if (e.target.files.length) handleXlsxFile(e.target.files[0]);
+});
+
+function handleXlsxFile(file){
+  const reader = new FileReader();
+  reader.onload = async () => {
+    try {
+      const rows = await ccParseTangoComprasXlsx(reader.result);
+      const result = ccConvertCompras(rows);
+      renderXlsxCard(file.name, result);
+    } catch (e) {
+      renderXlsxError(file.name, e);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function ccMoney(n){ return Number(n).toLocaleString('es-AR', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+function renderXlsxError(name, err){
+  const card = document.createElement('div');
+  card.className = 'panel';
+  card.innerHTML = `
+    <div class="card-head"><h2>${name}</h2></div>
+    <div class="danger-box">⚠ No se pudo procesar el archivo: ${err.message}</div>
+  `;
+  resultsXlsxEl.prepend(card);
+}
+
+function renderXlsxCard(name, result){
+  const { stats, warnings, cbteLines, aliLines } = result;
+  const base = name.replace(/\.xlsx$/i, '') || 'compras';
+
+  const warnBox = warnings.length
+    ? `<div class="warn-box">⚠ ${warnings.length} advertencia(s):<br>${warnings.slice(0,30).map(w => '• ' + w.replace(/&/g,'&amp;').replace(/</g,'&lt;')).join('<br>')}${warnings.length>30 ? `<br>... y ${warnings.length-30} más.` : ''}</div>`
+    : '';
+
+  const card = document.createElement('div');
+  card.className = 'panel';
+  card.innerHTML = `
+    <div class="card-head">
+      <div>
+        <h2>${name}</h2>
+        <div class="filename">${stats.totalFilasExcel.toLocaleString('es-AR')} filas del Excel</div>
+      </div>
+      <span class="badge type">Compras Tango → ARCA</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">${stats.comprobantesIndividuales}</div><div class="l">Comprobantes individuales (A/B/C)</div></div>
+      <div class="stat"><div class="n">${stats.filasBancarias}</div><div class="l">Filas bancarias agrupadas</div></div>
+      <div class="stat ok"><div class="n">${stats.bancosAgrupados}</div><div class="l">Comprobantes 099 generados (por banco)</div></div>
+      <div class="stat"><div class="n">${stats.totalComprobantesCbte}</div><div class="l">Total comprobantes CBTE</div></div>
+      <div class="stat"><div class="n">${stats.totalLineasAlicuotas}</div><div class="l">Líneas ALICUOTAS</div></div>
+      <div class="stat ${warnings.length ? 'warn' : ''}"><div class="n">${warnings.length}</div><div class="l">Advertencias</div></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">$${ccMoney(stats.sumaImporteTotalExcel)}</div><div class="l">Suma "Importe total" (Excel, columna N)</div></div>
+      <div class="stat"><div class="n">$${ccMoney(stats.sumaIvaExcel)}</div><div class="l">Suma IVA (Excel, columna L)</div></div>
+      <div class="stat"><div class="n">${stats.fechaUltimoDiaMes ?? '-'}</div><div class="l">Fecha/número usado para comprobantes 099</div></div>
+    </div>
+    ${warnBox}
+    <div class="actions">
+      <button class="download-cbte">⬇ Descargar CBTE (${cbteLines.length} líneas)</button>
+      <button class="download-ali">⬇ Descargar ALICUOTAS (${aliLines.length} líneas)</button>
+    </div>
+  `;
+
+  function downloadLines(lines, suffix){
+    const content = lines.join('\r\n') + '\r\n';
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = base + suffix + '.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  card.querySelector('.download-cbte').addEventListener('click', () => downloadLines(cbteLines, '_COMPRAS_CBTE'));
+  card.querySelector('.download-ali').addEventListener('click', () => downloadLines(aliLines, '_COMPRAS_ALICUOTAS'));
+
+  resultsXlsxEl.prepend(card);
+}
+</script>
+
+
+</body></html>
